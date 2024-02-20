@@ -710,10 +710,10 @@ function checkConditions() {
 const get_element = document.querySelector(".bundled_btn");
 get_element.addEventListener("click", () => {
   let formData = {
-    'items': [{
+    items: {
      'id': 8347823046900,
      'quantity': 2
-     }]
+     }
    };
    fetch("https://asad-ullah-baig-test.myshopify.com/" + 'cart/add.js', {
      method: 'POST',
