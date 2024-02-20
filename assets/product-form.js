@@ -31,24 +31,27 @@ if (!customElements.get('product-form')) {
         delete config.headers['Content-Type'];
 
         const formData = new FormData(this.form);
-        // console.log("formData: ",formData.get('id'));
+        console.log("formData: ",formData.get('id'), "this.cart:: ", this.cart);
         if (this.cart) {
           debugger;
           formData.append(
             'sections',
             this.cart.getSectionsToRender().map((section) => section.id)
           );
-          console.log("this.cart.getSectionsToRender().map((section) => section.id):: ", this.cart.getSectionsToRender().map((section) => section.id));
+          // console.log("this.cart.getSectionsToRender().map((section) => section.id):: ", this.cart.getSectionsToRender().map((section) => section.id));
           formData.append('sections_url', window.location.pathname);
           this.cart.setActiveElement(document.activeElement);
         }
         config.body = formData;
-
+        console.log("configgg:: ",config, "formData:: ", formData);
+        // debugger;
         fetch(`${routes.cart_add_url}`, config)
-          .then((response) => response.json())
+          
+        .then((response) => response.json())
           .then((response) => {
-            debugger;
+            // debugger;
             if (response.status) {
+              // debugger;
               publish(PUB_SUB_EVENTS.cartError, {
             source: 'product-form',
                 productVariantId: formData.get('id'),
@@ -75,6 +78,7 @@ if (!customElements.get('product-form')) {
                 productVariantId: formData.get('id'),
                 cartData: response,
               });
+              console.log("cartData:: ",cartData);
 
             this.error = false;
             const quickAddModal = this.closest('quick-add-modal');
