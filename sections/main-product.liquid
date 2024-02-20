@@ -673,6 +673,16 @@
   </div>
 </section>
 
+<script>
+  const get_add = document.querySelector(".product-form__submit");
+get_add.addEventListener("click", () =>{
+    const get_variant_id = document.querySelector(".product-variant-id");
+    get_variant_id.value;
+    console.log("get_variant_id.value:: ", get_variant_id.value);
+})
+</script>
+
+
 {% schema %}
 {
   "name": "t:sections.main-product.name",

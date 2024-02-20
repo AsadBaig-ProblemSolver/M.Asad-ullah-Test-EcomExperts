@@ -952,16 +952,16 @@ document.addEventListener('DOMContentLoaded', function(){
       if (element.tagName === 'SELECT') {
         if(element.value === 'unselected'){
           const get_add_cart = document.getElementsByClassName("product-form__submit");
-          console.log(get_add_cart, "DISABLE THE ADD TO CART");
+          // console.log(get_add_cart, "DISABLE THE ADD TO CART");
           get_add_cart[0].setAttribute("disabled", "disabled");
           const get_child_element = get_add_cart[0].children[0];
-          console.log(get_child_element);
+          // console.log(get_child_element);
           get_child_element.innerText = 'Unavailable';
-          console.log(get_child_element);
+          // console.log(get_child_element);
         }
         else{
           const get_add_cart = document.getElementsByClassName("product-form__submit");
-          console.log(get_add_cart, "DISABLE THE ADD TO CART");
+          // console.log(get_add_cart, "DISABLE THE ADD TO CART");
           get_add_cart[0].removeAttribute("disabled", "disabled");
         }
         console.log("element.value:: ", element.value);
@@ -1068,7 +1068,7 @@ class VariantSelects extends HTMLElement {
     if (!this.currentVariant.featured_media) return;
 
     const mediaGalleries = document.querySelectorAll(`[id^="MediaGallery-${this.dataset.section}"]`);
-    console.log("mediaGalleries:: ", mediaGalleries);
+    // console.log("mediaGalleries:: ", mediaGalleries);
     mediaGalleries.forEach((mediaGallery) =>
       mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`, true)
     );
@@ -1076,7 +1076,7 @@ class VariantSelects extends HTMLElement {
     const modalContent = document.querySelector(`#ProductModal-${this.dataset.section} .product-media-modal__content`);
     if (!modalContent) return;
     const newMediaModal = modalContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
-    console.log("newMediaModal:: ", newMediaModal);
+    // console.log("newMediaModal:: ", newMediaModal);
     modalContent.prepend(newMediaModal);
   }
 
@@ -1125,15 +1125,15 @@ class VariantSelects extends HTMLElement {
 
       if (element.tagName === 'INPUT') {
         element.classList.toggle('disabled', !availableElement);
-        console.log("element:: ", element);
+        // console.log("element:: ", element);
       } else if (element.tagName === 'OPTION') {
         if(element.innerText === 'Unselected' && availableElement === false){
           element.innerText = 'Unselected';
-          console.log("in If: ",element.innerText, availableElement);
+          // console.log("in If: ",element.innerText, availableElement);
         }
         else{
           
-        console.log("in else: ",element.innerText, availableElement);
+        // console.log("in else: ",element.innerText, availableElement);
         element.innerText = availableElement
           ? value
           : window.variantStrings.unavailable_with_option.replace('[value]', value);

@@ -31,11 +31,14 @@ if (!customElements.get('product-form')) {
         delete config.headers['Content-Type'];
 
         const formData = new FormData(this.form);
+        // console.log("formData: ",formData.get('id'));
         if (this.cart) {
+          debugger;
           formData.append(
             'sections',
             this.cart.getSectionsToRender().map((section) => section.id)
           );
+          console.log("this.cart.getSectionsToRender().map((section) => section.id):: ", this.cart.getSectionsToRender().map((section) => section.id));
           formData.append('sections_url', window.location.pathname);
           this.cart.setActiveElement(document.activeElement);
         }
@@ -44,9 +47,10 @@ if (!customElements.get('product-form')) {
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
+            debugger;
             if (response.status) {
               publish(PUB_SUB_EVENTS.cartError, {
-                source: 'product-form',
+            source: 'product-form',
                 productVariantId: formData.get('id'),
                 errors: response.errors || response.description,
                 message: response.message,
@@ -66,11 +70,12 @@ if (!customElements.get('product-form')) {
             }
 
             if (!this.error)
-              publish(PUB_SUB_EVENTS.cartUpdate, {
+            publish(PUB_SUB_EVENTS.cartUpdate, {
                 source: 'product-form',
                 productVariantId: formData.get('id'),
                 cartData: response,
               });
+
             this.error = false;
             const quickAddModal = this.closest('quick-add-modal');
             if (quickAddModal) {
