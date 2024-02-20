@@ -946,6 +946,30 @@ class SlideshowComponent extends SliderComponent {
 
 customElements.define('slideshow-component', SlideshowComponent);
 
+document.addEventListener('DOMContentLoaded', function(){
+  
+    this.options = Array.from(this.querySelectorAll('select'), (element) => {
+      if (element.tagName === 'SELECT') {
+        if(element.value === 'unselected'){
+          const get_add_cart = document.getElementsByClassName("product-form__submit");
+          console.log(get_add_cart, "DISABLE THE ADD TO CART");
+          get_add_cart[0].setAttribute("disabled", "disabled");
+          const get_child_element = get_add_cart[0].children[0];
+          console.log(get_child_element);
+          get_child_element.innerText = 'Unavailable';
+          console.log(get_child_element);
+        }
+        else{
+          const get_add_cart = document.getElementsByClassName("product-form__submit");
+          console.log(get_add_cart, "DISABLE THE ADD TO CART");
+          get_add_cart[0].removeAttribute("disabled", "disabled");
+        }
+        console.log("element.value:: ", element.value);
+        return element.value;
+      }
+  })
+})
+
 class VariantSelects extends HTMLElement {
   constructor() {
     super();
@@ -974,9 +998,12 @@ class VariantSelects extends HTMLElement {
     }
   }
 
+  
+
   updateOptions() {
     this.options = Array.from(this.querySelectorAll('select, fieldset'), (element) => {
       if (element.tagName === 'SELECT') {
+        // console.log("element.value:: ", element.value);
         return element.value;
       }
       if (element.tagName === 'FIELDSET') {
@@ -1021,15 +1048,15 @@ class VariantSelects extends HTMLElement {
     get_variant_thumbs.forEach((ele)=>{
       ele.style.display = 'none';
     });
-    console.log("get_variant_thumbs:: ",get_variant_thumbs);
+    // console.log("get_variant_thumbs:: ",get_variant_thumbs);
     
     const get_current_variant = this.currentVariant.featured_media.alt;
-    console.log("get_current_variant:: ",get_current_variant);
+    // console.log("get_current_variant:: ",get_current_variant);
     const get_current_attribute = '[image-alt="' + get_current_variant + '"]';
-    console.log("get_current_attribute:: ",get_current_attribute);
+    // console.log("get_current_attribute:: ",get_current_attribute);
     get_variant_thumbs.forEach((ele)=>{
       const get_selected = ele.getAttribute('image-alt');
-      console.log("get_selected:: ",get_selected);
+      // console.log("get_selected:: ",get_selected);
       if(get_selected === get_current_variant ){
         ele.style.display = 'block';
       }
@@ -1098,10 +1125,19 @@ class VariantSelects extends HTMLElement {
 
       if (element.tagName === 'INPUT') {
         element.classList.toggle('disabled', !availableElement);
+        console.log("element:: ", element);
       } else if (element.tagName === 'OPTION') {
+        if(element.innerText === 'Unselected' && availableElement === false){
+          element.innerText = 'Unselected';
+          console.log("in If: ",element.innerText, availableElement);
+        }
+        else{
+          
+        console.log("in else: ",element.innerText, availableElement);
         element.innerText = availableElement
           ? value
           : window.variantStrings.unavailable_with_option.replace('[value]', value);
+        }
       }
     });
   }
