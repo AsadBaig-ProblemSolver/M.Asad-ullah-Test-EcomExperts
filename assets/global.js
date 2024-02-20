@@ -966,6 +966,7 @@ class VariantSelects extends HTMLElement {
       this.setUnavailable();
     } else {
       this.updateMedia();
+      this.filteringProductImages();
       this.updateURL();
       this.updateVariantInput();
       this.renderProductInfo();
@@ -1014,11 +1015,33 @@ class VariantSelects extends HTMLElement {
     }
   }
 
+  // Update the product images based on variant selection
+  filteringProductImages() {
+    const get_variant_thumbs = document.querySelectorAll("li[image-alt]");
+    get_variant_thumbs.forEach((ele)=>{
+      ele.style.display = 'none';
+    });
+    console.log("get_variant_thumbs:: ",get_variant_thumbs);
+    
+    const get_current_variant = this.currentVariant.featured_media.alt;
+    console.log("get_current_variant:: ",get_current_variant);
+    const get_current_attribute = '[image-alt="' + get_current_variant + '"]';
+    console.log("get_current_attribute:: ",get_current_attribute);
+    get_variant_thumbs.forEach((ele)=>{
+      const get_selected = ele.getAttribute('image-alt');
+      console.log("get_selected:: ",get_selected);
+      if(get_selected === get_current_variant ){
+        ele.style.display = 'block';
+      }
+    });
+   }
+
   updateMedia() {
     if (!this.currentVariant) return;
     if (!this.currentVariant.featured_media) return;
 
     const mediaGalleries = document.querySelectorAll(`[id^="MediaGallery-${this.dataset.section}"]`);
+    console.log("mediaGalleries:: ", mediaGalleries);
     mediaGalleries.forEach((mediaGallery) =>
       mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`, true)
     );
@@ -1026,6 +1049,7 @@ class VariantSelects extends HTMLElement {
     const modalContent = document.querySelector(`#ProductModal-${this.dataset.section} .product-media-modal__content`);
     if (!modalContent) return;
     const newMediaModal = modalContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
+    console.log("newMediaModal:: ", newMediaModal);
     modalContent.prepend(newMediaModal);
   }
 

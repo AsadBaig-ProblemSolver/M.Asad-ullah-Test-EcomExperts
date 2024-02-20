@@ -33,7 +33,7 @@
           endif
         endif
       -%}
-      {%- if picker_type == 'swatch' -%}
+      {%- if picker_type == 'swatch' and option.name == 'Color'-%}
         <fieldset class="js product-form__input product-form__input--swatch">
           <legend class="form__label">
             {{ option.name }}:
@@ -48,7 +48,7 @@
             picker_type: picker_type
           %}
         </fieldset>
-      {%- elsif picker_type == 'button' -%}
+      {%- elsif picker_type == 'button' and option.name == 'Color' -%}
         <fieldset class="js product-form__input product-form__input--pill">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options',
@@ -58,32 +58,42 @@
             picker_type: picker_type
           %}
         </fieldset>
-      {%- else -%}
+      {%- elsif option.name == 'Size' -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
           </label>
           <div class="select">
-            {%- if picker_type == 'swatch_dropdown' -%}
-              <span
+              {% comment %} <span
                 data-selected-dropdown-swatch="options[{{ option.name | escape }}]"
                 class="dropdown-swatch"
               >
                 {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
-              </span>
-            {%- endif -%}
+              </span> {% endcomment %}
+            
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
               class="select__select"
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >
-              {% render 'product-variant-options',
-                product: product,
-                option: option,
-                block: block,
-                picker_type: picker_type
-              %}
+              {%- for value in option.values -%}
+              <option
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}
+                  selected="selected"
+                {% endif %}
+                {% if swatch_value and picker_type == 'swatch_dropdown' %}
+                  data-option-swatch-value="{{ swatch_value }}"
+                {% endif %}
+              >
+                {% if option_disabled -%}
+                  {{- 'products.product.value_unavailable' | t: option_value: value -}}
+                {%- else -%}
+                  {{- value -}}
+                {%- endif %}
+              </option>
+            {% endfor %}
             </select>
             {% render 'icon-caret' %}
           </div>
