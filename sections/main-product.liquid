@@ -709,24 +709,49 @@ function checkConditions() {
 }
 const get_element = document.querySelector(".bundled_btn");
 get_element.addEventListener("click", () => {
-  let formData = {
-     id: 8347823046900,
-     quantity: 2
-       };
-   fetch("https://asad-ullah-baig-test.myshopify.com/" + 'cart/add.js', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(formData)
-   })
-   .then(response => {
-    console.log(response);
-     return response.json();
-   })
-   .catch((error) => {
-     console.error('Error:', error);
-   });
+  let array_product =[{qty:1, id:8347823046900}];
+
+  for (var i = 0; i < array_product.length; i++) {
+    console.log("array_product: ", array_product[i]);
+
+    let data = {
+        quantity: array_product[i].qty,
+        id: array_product[i].id
+    };
+
+    // Check if it's the last product in the array
+    if (i === array_product.length - 1) {
+        let newPropertiesObject = {
+            template_suffix: 'preconfigured'
+        };
+        // Add the properties key to the data object
+        data.properties = newPropertiesObject;
+    }
+    else{
+         let bundlePropertiesObject = {
+            template_suffix: 'bundled'
+        };
+        // Add the properties key to the data object
+        data.properties = bundlePropertiesObject;   
+    }
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: '/cart/add.js',
+        data: data,
+        dataType: "json",
+        success: function (result) {
+            // Handle success if needed
+        },
+        complete: function () {
+            // Redirect to the cart page after the last request
+            if (i === array_product.length - 1) {
+                window.location.href = "/cart";
+            }
+        }
+    });
+}
 });
 </script>
 
