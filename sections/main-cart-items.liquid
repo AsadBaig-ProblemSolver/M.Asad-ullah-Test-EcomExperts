@@ -22,6 +22,23 @@
 {%- unless settings.cart_type == 'drawer' -%}
   <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
+{%  assign parent = false %}
+{%  assign child = false %}
+{%for item in cart.items %}
+                            {%- for property in item.properties -%}
+                              {% if property.first != 'blank' and property.first == 'template_suffix' %}
+                              {{property.first}}<br>
+                              {%endif %}
+                              
+                              {% if property.first != 'blank' and property.last == 'Parent'%}
+{%  assign parent = true %}
+
+                                {{property.last}}
+                                {%endif %}
+
+                            {%- endfor -%}
+                            {%endfor %}
+
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
@@ -281,15 +298,10 @@
                               href="{{ item.url_to_remove }}"
                               class="button button--tertiary"
                               aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                              check_parent = '{{parent}}'
                             >
                               {% render 'icon-remove' %}
                             </a>
-{%for item in cart.items %}
-                            {%- for property in item.properties -%}
-                              {{property.first}}<br>
-  {{property.last}}
-                            {%- endfor -%}
-                            {%endfor %}
 
                           </cart-remove-button>
                         </div>
