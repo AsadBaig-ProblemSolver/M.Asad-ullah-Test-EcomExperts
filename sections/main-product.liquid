@@ -714,9 +714,21 @@ console.log(get_element);
 debugger;  
 let formData = {
     'items': [{
-     'id': 44569510740212,
-     'quantity': 2
-     }]
+     'id': 44593032528116,
+     'quantity': 1,
+     'properties':{
+    "template_suffix":"Parent"
+    }
+     },
+     {
+      'id': 44569510740212,
+      'quantity': 1,
+      'properties':{
+      "template_suffix":'Child'
+      }
+      }
+    
+    ]
    };
    fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/add.js', {
      method: 'POST',
