@@ -457,28 +457,7 @@ const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
     const get_attr = btn.getAttribute("aria-label");
     return get_attr.includes("Black / Medium");
 });
-
-const get_child_btn = Array.from(get_delete_btn).filter((btn) => {
-  const get_attr = btn.getAttribute("aria-label");
-  const get_anchor_child = get_attr.includes("Soft Winter Jacket");
-  const get_parent = get_anchor_child.parentNode;
-  console.log("get_parent:: ", get_parent);
-  return get_anchor_child;
-});
-
-get_parent_btn[0].addEventListener("click", () => {
-    console.log("get_child_btn[0]: ", get_child_btn[0]);
-    {% comment %} console.log(get_child_btn[0].parent); {% endcomment %}
-
-    setTimeout(() => {
-    const clickEvent = new Event("click", { bubbles: true });
-    get_child_btn[0].parentNode.dispatchEvent(clickEvent);
-
-  }, 5000);
-
-  });
-
-
+console.log("get_parent_btn: ", get_parent_btn[0]);
 
 </script>
 {% schema %}
