@@ -708,58 +708,46 @@ function checkConditions() {
     }
 }
 const get_element = document.querySelector(".bundled_btn");
-let product_array =[];
+let array_product =[];
 get_element.addEventListener("click", () => {
 
+  let array_product = [];
+
   fetch(window.Shopify.routes.root + 'products/dark-winter-jacket.js')
-  .then(response => response.json())
-  .then(product => product_array.push({id: product.id , quantity:1,}) );
-console.log(product_array);
-const product_soft = {{product | json }};
-console.log("product_soft:: ",product_soft);
-
- 
-
-  for (var i = 0; i < product_arrayt.length; i++) {
-    console.log("product_array: ", product_array[i]);
-
-    let data = {
-        quantity: product_array[i].quantity,
-        id: product_array[i].id
-    };
-
-    {% comment %} // Check if it's the last product in the array
-    if (i === array_product.length - 1) {
-        let newPropertiesObject = {
-            template_suffix: 'preconfigured'
+    .then(response => response.json())
+    .then(product => {
+      array_product.push({ id: product.id, quantity: 1 });
+      console.log("product_array: ", array_product);
+  
+      // Perform actions after fetching and updating array_product
+      {% comment %} const product_soft = {{product | json }}; {% endcomment %}
+      {% comment %} console.log("product_soft: ", product_soft); {% endcomment %}
+  
+      // Iterate through array_product and make asynchronous requests
+      array_product.forEach((product, index) => {
+        let data = {
+          quantity: product.quantity,
+          id: product.id
         };
-        // Add the properties key to the data object
-        data.properties = newPropertiesObject;
-    }
-    else{
-         let bundlePropertiesObject = {
-            template_suffix: 'bundled'
-        };
-        // Add the properties key to the data object
-        data.properties = bundlePropertiesObject;   
-    } {% endcomment %}
-
-    $.ajax({
-        type: "POST",
-        async: false,
-        url: '/cart/add.js',
-        data: data,
-        dataType: "json",
-        success: function (result) {
+  
+        $.ajax({
+          type: "POST",
+          url: '/cart/add.js',
+          data: data,
+          dataType: "json",
+          success: function (result) {
             // Handle success if needed
-        },
-        complete: function () {
+          },
+          complete: function () {
             // Redirect to the cart page after the last request
-                window.location.href = "/cart";
-          
-        }
+            if (index === array_product.length - 1) {
+              window.location.href = "/cart";
+            }
+          }
+        });
+      });
     });
-} {
+   
 });
 </script>
 
