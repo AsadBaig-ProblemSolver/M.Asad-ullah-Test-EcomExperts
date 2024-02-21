@@ -469,12 +469,10 @@ const get_parent_btn = document.querySelectorAll(".cart-remove-button a");
 get_parent_btn[0].addEventListener("click", () => {
     console.log("get_child_btn[0]: ", get_child_btn[0]);
 
-    // Dispatch a click event on get_child_btn[0]
-    const clickEvent = new Event("click");
+    const clickEvent = new Event("click", { bubbles: true });
     get_child_btn[0].dispatchEvent(clickEvent);
 
-    // Add your additional functionality here if needed
-});
+  });
 
 
 
