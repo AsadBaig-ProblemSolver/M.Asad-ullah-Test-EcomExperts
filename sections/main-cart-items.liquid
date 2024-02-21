@@ -450,21 +450,23 @@
   </div>
 </cart-items>
 <script>
-  const get_delete_btn = document.querySelectorAll(".cart-remove-button a");
-  const get_parent_btn = Array.from(get_delete_btn).filter((btn) => btn.getAttribute("aria-label").includes("Black / Medium"));
-  
-console.log(get_parent_btn);
-get_delete_btn.forEach((btn)=>{
+
+const get_delete_btn = document.querySelectorAll(".cart-remove-button a");
+
+const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
     const get_attr = btn.getAttribute("aria-label");
     console.log(get_attr);
+    return get_attr.includes("Black / Medium");
+});
+console.log("get_parent_btn: ",get_parent_btn);
+{% comment %} get_parent_btn.forEach((btn) => {
+    btn.classList.add("parent_btn");
+    btn.addEventListener("click", () => {
+        // Add your functionality here when the button is clicked
+        // You can use btn.getAttribute("aria-label") to get the aria-label value if needed
+    });
+}); {% endcomment %}
 
-    if(get_attr.includes("Black / Medium")){
-        btn.classList.add("parent_btn");
-        btn.addEventListener("click", ()=>{
-
-        })
-    }
-})
 
 </script>
 {% schema %}
