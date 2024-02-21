@@ -449,7 +449,10 @@
     </form>
   </div>
 </cart-items>
-
+<script>
+const get_cart = {{ cart | json }};
+console.log("get_cart: ", get_cart);
+</script>
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
