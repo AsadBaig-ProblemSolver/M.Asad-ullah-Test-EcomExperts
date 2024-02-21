@@ -452,6 +452,9 @@
 <script>
   const get_delete_btn = document.querySelectorAll("cart-remove-button a");
 console.log(get_delete_btn);
+
+const get_parent_btn = get_delete_btn.filter((btn)=> btn.getAttribute("aria-label").includes("Black / Medium"));
+console.log(get_parent_btn);
 get_delete_btn.forEach((btn)=>{
     const get_attr = btn.getAttribute("aria-label");
     console.log(get_attr);
@@ -459,8 +462,7 @@ get_delete_btn.forEach((btn)=>{
     if(get_attr.includes("Black / Medium")){
         btn.classList.add("parent_btn");
         btn.addEventListener("click", ()=>{
-          const get_items = {{cart | json }};
-        console.log("get_items: ", get_items);
+
         })
     }
 })
