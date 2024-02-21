@@ -461,7 +461,8 @@ const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
 const get_child_btn = Array.from(get_delete_btn).filter((btn) => {
   const get_attr = btn.getAttribute("aria-label");
   const get_anchor_child = get_attr.includes("Soft Winter Jacket");
-  console.log(get_anchor_child.parentNode);
+  const get_parent = get_anchor_child.parentNode;
+  console.log("get_parent:: ", get_parent);
   return get_anchor_child;
 });
 
@@ -471,7 +472,7 @@ get_parent_btn[0].addEventListener("click", () => {
 
     setTimeout(() => {
     const clickEvent = new Event("click", { bubbles: true });
-    get_child_btn[0].dispatchEvent(clickEvent);
+    get_child_btn[0].parentNode.dispatchEvent(clickEvent);
 
   }, 3000);
 
