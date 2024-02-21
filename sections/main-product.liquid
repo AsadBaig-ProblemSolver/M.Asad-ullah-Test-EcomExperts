@@ -724,14 +724,45 @@ let formData = {
       'id': 44569510740212,
       'quantity': 1,
       'price':0.01,
-      'discounted_price': 0.01,
-      'line_price':0.01,
-      'final_line_price':0.01,
-      'total_discount':10,
-      'final_price':0.01,
+      'discounted_price': 1,
+      'line_price':1,
+      'final_line_price':1,
+      'total_discount':4999,
+      'final_price': 1,
+      'discounts': [
+        {
+        amount: 4999,
+        title: "Variant Discount"
+        }
+        ],
       'properties':{
       "template_suffix":'Child'
-      }
+      },
+      'line_level_discount_allocations': [
+        {
+        amount: 4999,
+        'discount_application': {
+        type: "",
+        key: "68fbab0c-d720-4e1a-b52a-36d208c6cf37",
+        title: "Variant Discount",
+        description: null,
+        value: "49.99",
+        created_at: "2024-02-21T13:39:16.819Z",
+        value_type: "fixed_amount",
+        allocation_method: "each",
+        target_selection: "entitled",
+        target_type: "line_item",
+        total_allocated_amount: 4999
+        }
+        }
+        ],
+        'line_level_total_discount': 4999,
+        quantity_rule: {
+        min: 1,
+        max: null,
+        increment: 1
+        },
+        has_components: false
       }
     
     ]
