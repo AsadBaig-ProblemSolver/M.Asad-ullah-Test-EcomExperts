@@ -708,16 +708,17 @@ function checkConditions() {
     }
 }
 const get_element = document.querySelector(".bundled_btn");
-let array_product =[];
+//let array_product =[];
 get_element.addEventListener("click", () => {
-
-  let formData = {
+console.log(get_element);
+debugger;  
+let formData = {
     'items': [{
      'id': 44569510740212,
      'quantity': 2
      }]
    };
-   fetch(window.origin + '/cart/add.js', {
+   fetch(window.Shopify.routes.root + '/cart/add.js', {
      method: 'POST',
      headers: {
        'Content-Type': 'application/json'
