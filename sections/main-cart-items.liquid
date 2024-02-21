@@ -284,6 +284,13 @@
                             >
                               {% render 'icon-remove' %}
                             </a>
+{%for item in cart.items %}
+                            {%- for property in item.properties -%}
+                              {{property.first}}<br>
+  {{property.last}}
+                            {%- endfor -%}
+                            {%endfor %}
+
                           </cart-remove-button>
                         </div>
                         {%- if has_qty_rules or has_vol_pricing -%}
@@ -453,6 +460,8 @@
 const get_cart = {{ cart | json }};
 const get_items = get_cart.items;
 console.log("get_cart: ", get_items);
+
+const get_parent_product =  
 </script>
 {% schema %}
 {
