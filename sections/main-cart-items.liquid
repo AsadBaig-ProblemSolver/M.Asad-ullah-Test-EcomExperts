@@ -465,7 +465,7 @@ const get_child_btn = Array.from(get_delete_btn).filter((btn) => {
 
 get_parent_btn[0].addEventListener("click", () => {
     console.log("get_child_btn[0]: ", get_child_btn[0]);
-
+    console.log(get_child_btn[0].parent);
     const clickEvent = new Event("click", { bubbles: true });
     get_child_btn[0].dispatchEvent(clickEvent);
 
