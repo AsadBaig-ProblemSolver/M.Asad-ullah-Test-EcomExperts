@@ -455,17 +455,20 @@ const get_delete_btn = document.querySelectorAll("cart-remove-button a");
 console.log(get_delete_btn);
 const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
     const get_attr = btn.getAttribute("aria-label");
-    console.log(get_attr);
     return get_attr.includes("Black / Medium");
 });
+
+const get_child_btn = Array.from(get_delete_btn).filter((btn) => {
+  const get_attr = btn.getAttribute("aria-label");
+  return get_attr.includes("Soft Winter Jacket");
+});
+
 console.log("get_parent_btn: ",get_parent_btn);
-{% comment %} get_parent_btn.forEach((btn) => {
-    btn.classList.add("parent_btn");
-    btn.addEventListener("click", () => {
+get_parent_btn[0].addEventListener("click", () => {
+  console.log("get_child_btn[0]: " ,get_child_btn[0]);
         // Add your functionality here when the button is clicked
-        // You can use btn.getAttribute("aria-label") to get the aria-label value if needed
-    });
-}); {% endcomment %}
+   
+}); 
 
 
 </script>
