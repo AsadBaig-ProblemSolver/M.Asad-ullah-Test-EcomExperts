@@ -272,6 +272,9 @@
                               </button>
                             </quantity-input>
                           </div>
+                          {%if item.title contains 'Black / Medium' %}
+                          <button class = "my_bundle_btn">{% render 'icon-remove' %}</button>
+                          {% else %}
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
                             data-index="{{ item.index | plus: 1 }}"
@@ -285,6 +288,7 @@
                             </a>
 
                           </cart-remove-button>
+                          {%endif %}
                         </div>
                         {%- if has_qty_rules or has_vol_pricing -%}
                           <button
@@ -451,13 +455,14 @@
 </cart-items>
 <script>
 
-const get_delete_btn = document.querySelectorAll("cart-remove-button a");
+{% comment %} const get_delete_btn = document.querySelectorAll("cart-remove-button a");
 console.log(get_delete_btn);
 const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
     const get_attr = btn.getAttribute("aria-label");
     return get_attr.includes("Black / Medium");
 });
-console.log("get_parent_btn: ", get_parent_btn[0]);
+console.log("get_parent_btn: ", get_parent_btn[0]); {% endcomment %}
+const get_delete_btn = document.querySelector(".my_bundle_btn");
 
 let formData = {
   'items': [{
@@ -473,7 +478,7 @@ let formData = {
  };
 
 
-get_parent_btn[0].addEventListener("click", ()=>{
+ get_delete_btn.addEventListener("click", ()=>{
   fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
     method: 'POST',
     headers: {
@@ -483,7 +488,7 @@ get_parent_btn[0].addEventListener("click", ()=>{
   })
   .then(response => {
    console.log(response);
-   window.onload();
+   window.load();
     return response.json();
   })
   .catch((error) => {
