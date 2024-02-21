@@ -474,13 +474,10 @@ get_parent_btn[0].addEventListener("click", () => {
     const clickEvent = new Event("click", { bubbles: true });
     get_child_btn[0].parentNode.dispatchEvent(clickEvent);
 
-  }, 3000);
+  }, 5000);
 
   });
 
-  get_child_btn[0].addEventListener("click", () => {
-    console.log("Child button clicked");
-});
 
 
 </script>
