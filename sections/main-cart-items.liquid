@@ -463,9 +463,6 @@ const get_child_btn = Array.from(get_delete_btn).filter((btn) => {
   return get_attr.includes("Soft Winter Jacket");
 });
 
-console.log("get_parent_btn: ",get_parent_btn);
-const get_parent_btn = document.querySelectorAll(".cart-remove-button a");
-
 get_parent_btn[0].addEventListener("click", () => {
     console.log("get_child_btn[0]: ", get_child_btn[0]);
 
