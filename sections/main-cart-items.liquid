@@ -451,7 +451,8 @@
 </cart-items>
 <script>
 const get_cart = {{ cart | json }};
-console.log("get_cart: ", get_cart);
+const get_items = get_cart.items;
+console.log("get_cart: ", get_items);
 </script>
 {% schema %}
 {
