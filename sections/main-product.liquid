@@ -708,18 +708,27 @@ function checkConditions() {
     }
 }
 const get_element = document.querySelector(".bundled_btn");
+let product_array =[];
 get_element.addEventListener("click", () => {
-  let array_product =[{qty:1, id:8347823046900}];
 
-  for (var i = 0; i < array_product.length; i++) {
-    console.log("array_product: ", array_product[i]);
+  fetch(window.Shopify.routes.root + 'products/dark-winter-jacket.js')
+  .then(response => response.json())
+  .then(product => product_array.push({id: product.id , quantity:1,}) );
+console.log(product_array);
+const product_soft = {{product | json }};
+console.log("product_soft:: ",product_soft);
+
+ 
+
+  for (var i = 0; i < product_arrayt.length; i++) {
+    console.log("product_array: ", product_array[i]);
 
     let data = {
-        quantity: array_product[i].qty,
-        id: array_product[i].id
+        quantity: product_array[i].quantity,
+        id: product_array[i].id
     };
 
-    // Check if it's the last product in the array
+    {% comment %} // Check if it's the last product in the array
     if (i === array_product.length - 1) {
         let newPropertiesObject = {
             template_suffix: 'preconfigured'
@@ -733,7 +742,7 @@ get_element.addEventListener("click", () => {
         };
         // Add the properties key to the data object
         data.properties = bundlePropertiesObject;   
-    }
+    } {% endcomment %}
 
     $.ajax({
         type: "POST",
@@ -746,12 +755,11 @@ get_element.addEventListener("click", () => {
         },
         complete: function () {
             // Redirect to the cart page after the last request
-            if (i === array_product.length - 1) {
                 window.location.href = "/cart";
-            }
+          
         }
     });
-}
+} {
 });
 </script>
 
