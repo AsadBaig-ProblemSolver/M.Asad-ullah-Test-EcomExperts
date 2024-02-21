@@ -459,6 +459,39 @@ const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
 });
 console.log("get_parent_btn: ", get_parent_btn[0]);
 
+let formData = {
+  'items': [{
+   'id': 44593032528116,
+   'quantity': 0
+   },
+   {
+    'id': 44569510740212,
+    'quantity': 0  
+  }
+  
+  ]
+ };
+
+
+get_parent_btn[0].addEventListener("click", ()=>{
+  fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+   console.log(response);
+   window.onload();
+    return response.json();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+
+})
+
 </script>
 {% schema %}
 {
