@@ -22,24 +22,6 @@
 {%- unless settings.cart_type == 'drawer' -%}
   <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
-{%  assign parent = false %}
-{%  assign child = false %}
-{%for item in cart.items %}
-                            {%- for property in item.properties -%}
-                              {% if property.first != 'blank' and property.first == 'template_suffix' %}
-                              {{property.first}}<br>
-                              {%endif %}
-                              
-                              {% if property.first != 'blank' and property.last == 'Parent'%}
-{%  assign parent = true %}
-
-                                {{property.last}}
-                                {%endif %}
-
-                            {%- endfor -%}
-                            {%endfor %}
-
-
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
 <cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
@@ -298,10 +280,8 @@
                               href="{{ item.url_to_remove }}"
                               class="button button--tertiary"
                               aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
-                              check_parent = '{{parent}}'
                             >
                               {% render 'icon-remove' %}
-                              {{item.title }}
                             </a>
 
                           </cart-remove-button>
@@ -470,11 +450,17 @@
   </div>
 </cart-items>
 <script>
-const get_cart = {{ cart | json }};
-const get_items = get_cart.items;
-console.log("get_cart: ", get_items);
+  const get_delete_btn = document.querySelectorAll("cart-remove-button a");
+console.log(get_delete_btn);
+get_delete_btn.forEach((btn)=>{
+    const get_attr = btn.getAttribute("aria-label");
+    console.log(get_attr);
 
-const get_parent_product =  
+    if(get_attr.includes("Black / Medium")){
+        btn.classList.add("parent_btn");
+    }
+})
+
 </script>
 {% schema %}
 {
