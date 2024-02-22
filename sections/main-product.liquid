@@ -736,7 +736,6 @@ let formData = {
      body: JSON.stringify(formData)
    })
    .then(response => {
-    window.onload();
     console.log(response);
      return response.json();
      window.location.href = "/cart";
