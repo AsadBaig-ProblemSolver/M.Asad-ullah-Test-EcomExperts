@@ -273,7 +273,7 @@
                             </quantity-input>
                           </div>
                           {%if item.title contains 'Black / Medium' %}
-                          <button class = "my_bundle_btn">{% render 'icon-remove' %}</button>
+                          {% render 'icon-remove' %}
                           {% else %}
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
