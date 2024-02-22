@@ -273,7 +273,7 @@
                             </quantity-input>
                           </div>
                           {%if item.title contains 'Black / Medium' %}
-                          {% render 'icon-remove' %}
+                       <span>   {% render 'icon-remove' %} </span>
                           {% else %}
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
