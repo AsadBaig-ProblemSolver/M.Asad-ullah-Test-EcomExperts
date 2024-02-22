@@ -472,6 +472,7 @@ const get_delete_btn = document.querySelector(".my_bundle_btn");
  get_delete_btn.addEventListener("click", ()=>{
 
   console.log("clicked on my custom delete button");
+  debugger;
 fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
   method: 'POST',
   headers: {
@@ -480,6 +481,7 @@ fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
   body: JSON.stringify({ updates })
 })
 .then(response => {
+  console.log(reponse);
   return response.json();
 })
 .catch((error) => {
