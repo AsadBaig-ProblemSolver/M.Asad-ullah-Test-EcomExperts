@@ -19,6 +19,17 @@
   }
 {%- endstyle -%}
 
+<style>
+.bundle_delete{
+  width: 15px;
+  height: 17px;
+  display: flex;
+  margin: 1.9rem 0 0 2.8rem;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
 {%- unless settings.cart_type == 'drawer' -%}
   <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
@@ -273,7 +284,7 @@
                             </quantity-input>
                           </div>
                           {%if item.title contains 'Black / Medium' %}
-                       <span>   {% render 'icon-remove' %} </span>
+                       <span class="bundle_delete">   {% render 'icon-remove' %} </span>
                           {% else %}
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
