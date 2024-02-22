@@ -464,36 +464,27 @@ const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
 console.log("get_parent_btn: ", get_parent_btn[0]); {% endcomment %}
 const get_delete_btn = document.querySelector(".my_bundle_btn");
 
-let formData = {
-  'items': [{
-   'id': 44593032528116,
-   'quantity': 0
-   },
-   {
-    'id': 44569510740212,
-    'quantity': 0  
-  }
-  
-  ]
- };
-
+ let updates = {
+  44593032528116: 0,
+  44569510740212: 0
+}
 
  get_delete_btn.addEventListener("click", ()=>{
-  fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  })
-  .then(response => {
-   console.log(response);
-   {% comment %} window.load(); {% endcomment %}
-    return response.json();
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+
+  console.log("clicked on my custom delete button");
+fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ updates })
+})
+.then(response => {
+  return response.json();
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
 
 })
 
