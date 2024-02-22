@@ -24,6 +24,25 @@
       endif
     -%}
 
+      {% comment %} for bundle version {% endcomment %}
+<button
+  id="ProductSubmitButton-{{ section_id }}"
+  name="add"
+  class="bundled_btn button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}" style="display:none;"
+  {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+    disabled
+  {% endif %}
+>
+  <span>
+    {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+      {{ 'products.product.sold_out' | t }}
+    {%- else -%}
+      {{ 'products.product.add_to_cart' | t }}
+    {%- endif -%}
+  </span>
+  {%- render 'loading-spinner' -%}
+</button>
+
     <product-form
       class="product-form"
       data-hide-errors="{{ gift_card_recipient_feature_active }}"
@@ -113,25 +132,6 @@
       </div>
     </div>
   {%- endif -%}
-
-  {% comment %} for bundle version {% endcomment %}
-<button
-  id="ProductSubmitButton-{{ section_id }}"
-  name="add"
-  class="bundled_btn button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}" style="display:none;"
-  {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
-    disabled
-  {% endif %}
->
-  <span>
-    {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-      {{ 'products.product.sold_out' | t }}
-    {%- else -%}
-      {{ 'products.product.add_to_cart' | t }}
-    {%- endif -%}
-  </span>
-  {%- render 'loading-spinner' -%}
-</button>
 
   {%- if show_pickup_availability -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}

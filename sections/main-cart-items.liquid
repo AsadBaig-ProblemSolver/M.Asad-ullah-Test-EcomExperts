@@ -27,6 +27,7 @@
   margin: 1.9rem 0 0 2.8rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 </style>
 
@@ -119,7 +120,7 @@
                           <span class="visually-hidden">
                             {{ 'products.product.price.regular_price' | t }}
                           </span>
-                          <s class="cart-item__old-price product-option">
+                          <s style="display: none;" class="cart-item__old-price product-option">
                             {{- item.original_price | money -}}
                           </s>
                           <span class="visually-hidden">
@@ -139,7 +140,7 @@
                         or item.properties.size != 0
                         or item.selling_plan_allocation != null
                       -%}
-                        <dl>
+                        <dl >
                           {%- if item.product.has_only_default_variant == false -%}
                             {%- for option in item.options_with_values -%}
                               <div class="product-option">
@@ -152,7 +153,7 @@
                           {%- for property in item.properties -%}
                             {%- assign property_first_char = property.first | slice: 0 -%}
                             {%- if property.last != blank and property_first_char != '_' -%}
-                              <div class="product-option">
+                              <div class="product-option" style="display: none;">
                                 <dt>{{ property.first }}:</dt>
                                 <dd>
                                   {%- if property.last contains '/uploads/' -%}
@@ -171,7 +172,7 @@
                         <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                       {%- endif -%}
 
-                      <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                      <ul style="display: none;" class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                         {%- for discount in item.line_level_discount_allocations -%}
                           <li class="discounts__discount">
                             {%- render 'icon-discount' -%}
@@ -190,7 +191,7 @@
                               {{ 'products.product.price.regular_price' | t }}
                             </dt>
                             <dd>
-                              <s class="cart-item__old-price price price--end">
+                              <s style="display: none;" class="cart-item__old-price price price--end">
                                 {{ item.original_line_price | money }}
                               </s>
                             </dd>
@@ -410,7 +411,7 @@
                               {{ 'products.product.price.regular_price' | t }}
                             </dt>
                             <dd>
-                              <s class="cart-item__old-price price price--end">
+                              <s style="display: none;" class="cart-item__old-price price price--end">
                                 {{ item.original_line_price | money }}
                               </s>
                             </dd>
@@ -466,21 +467,14 @@
 </cart-items>
 <script>
 
-{% comment %} const get_delete_btn = document.querySelectorAll("cart-remove-button a");
-console.log(get_delete_btn);
-const get_parent_btn = Array.from(get_delete_btn).filter((btn) => {
-    const get_attr = btn.getAttribute("aria-label");
-    return get_attr.includes("Black / Medium");
-});
-console.log("get_parent_btn: ", get_parent_btn[0]); {% endcomment %}
-const get_delete_btn = document.querySelector(".my_bundle_btn");
+const get_delete_btn = document.querySelector(".bundle_delete");  // Get the custom delete button
 
  let updates = {
   44593032528116: 0,
   44569510740212: 0
 }
 
- get_delete_btn.addEventListener("click", ()=>{
+ get_delete_btn.addEventListener("click", ()=>{       //run shopify cart update api to delete the items in a bundle
 
   console.log("clicked on my custom delete button");
   debugger;
@@ -492,12 +486,16 @@ fetch('https://asad-ullah-baig-test.myshopify.com/' + 'cart/update.js', {
   body: JSON.stringify({ updates })
 })
 .then(response => {
-  console.log(reponse);
+  console.log(response);
   return response.json();
 })
 .catch((error) => {
   console.error('Error:', error);
 });
+// Set time out and reload the cart page
+setTimeout(()=>{
+  window.location.href = "/cart";
+}, 1000)
 
 })
 
