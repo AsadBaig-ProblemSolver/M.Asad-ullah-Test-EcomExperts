@@ -488,7 +488,7 @@ let formData = {
   })
   .then(response => {
    console.log(response);
-   window.load();
+   {% comment %} window.load(); {% endcomment %}
     return response.json();
   })
   .catch((error) => {
